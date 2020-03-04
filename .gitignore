@@ -1,0 +1,5 @@
+.vscode/
+.nuget/
+packages/
+**/bin/
+**/obj/
