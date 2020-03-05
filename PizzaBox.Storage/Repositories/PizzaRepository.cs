@@ -9,9 +9,8 @@ namespace PizzaBox.Storage.Repositories {
 		public PizzaRepository() {
 
 		}
-		public List<Pizza> GetPizzas() {
-			var all = _db.Pizzas.AsEnumerable();
-			return all as List<Pizza>;
+		public List<Pizza> Get() {
+			return _db.Pizzas.ToList();
 		}
 	}
 }

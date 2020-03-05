@@ -1,5 +1,4 @@
 using Xunit;
-using PizzaBox.Domain.Models;
 using PizzaBox.Storage.Repositories;
 
 namespace PizzaBox.Testing.Specs {
@@ -7,7 +6,7 @@ namespace PizzaBox.Testing.Specs {
 		[Fact]
 		public void Test_RepositoryGet() {
 			var sut = new PizzaRepository();
-			var actual = sut.GetPizzas();
+			var actual = sut.Get();
 			Assert.True(actual != null);
 			Assert.True(actual.Count >= 0);
 		}
