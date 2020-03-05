@@ -6,7 +6,7 @@ namespace PizzaBox.Client {
 		private static readonly PizzaRepository _rp = new PizzaRepository();
 		private static void GetAllPizzas() {
 			foreach (var p in _rp.Get()) {
-				Console.WriteLine(p.ID);
+				Console.WriteLine(p.PizzaID);
 			}
 		}
 		private static void Main(string[] args) {
