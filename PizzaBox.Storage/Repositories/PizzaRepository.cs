@@ -12,7 +12,7 @@ namespace PizzaBox.Storage.Repositories {
 			return _db.Pizzas
 				.Include(p => p.Crust)
 				.Include(p => p.Size)
-				.Include(p => p.Toppings)
+				.Include(p => p.PizzaToppings)
 			.ToList();
 		}
 		public Pizza Get(long ID) {
