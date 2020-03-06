@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using PizzaBox.Domain.Models;
 
@@ -16,10 +17,27 @@ namespace PizzaBox.Storage.Databases {
 			builder.Entity<Size>().HasKey(s => s.SizeID);
 			builder.Entity<Topping>().HasKey(t => t.ToppingID);
 
-			builder.Entity<Pizza>().HasData(new Pizza());
-			builder.Entity<Crust>().HasData(new Crust() { CrustID = 1, PizzaID = 1 });
-			builder.Entity<Size>().HasData(new Size() { SizeID = 1, PizzaID = 1 });
-			builder.Entity<Topping>().HasData(new Topping() { ToppingID = 1, PizzaID = 1 });
+			builder.Entity<Crust>().HasMany<Pizza>().WithOne(p => p.Crust);
+			builder.Entity<Size>().HasMany<Pizza>().WithOne(p => p.Size);
+			builder.Entity<Topping>().HasMany<Pizza>();
+
+			builder.Entity<Crust>().HasData(new Crust[] {
+				new Crust() { Name = "Deep Dish", Price = 3.50M },
+				new Crust() { Name = "New York Style", Price = 2.50M },
+				new Crust() { Name = "Thin Crust", Price = 1.50M }
+			});
+
+			builder.Entity<Size>().HasData(new Size[] {
+				new Size() { Name = "Large", Price = 12.00M },
+				new Size() { Name = "Medium", Price = 10.00M },
+				new Size() { Name = "Small", Price = 8.00M }
+			});
+
+			builder.Entity<Topping>().HasData(new Topping[] {
+				new Topping() { Name = "Cheese", Price = 0.25M },
+				new Topping() { Name = "Pepperoni", Price = 0.50M },
+				new Topping() { Name = "Tomato Sauce", Price = 0.75M }
+			});
 		}
 	}
 }
