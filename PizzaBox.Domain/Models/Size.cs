@@ -9,5 +9,8 @@ namespace PizzaBox.Domain.Models {
 		public Size() {
 			SizeID = DateTime.Now.Ticks;
 		}
+		public override long GetID() {
+			return SizeID;
+		}
 	}
 }

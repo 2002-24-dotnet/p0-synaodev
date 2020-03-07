@@ -9,5 +9,8 @@ namespace PizzaBox.Domain.Models {
 		public Crust() {
 			CrustID = DateTime.Now.Ticks;
 		}
+		public override long GetID() {
+			return CrustID;
+		}
 	}
 }

@@ -9,5 +9,8 @@ namespace PizzaBox.Domain.Models {
 		public Topping() {
 			ToppingID = DateTime.Now.Ticks;
 		}
+		public override long GetID() {
+			return ToppingID;
+		}
 	}
 }
