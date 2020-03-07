@@ -8,14 +8,21 @@ namespace PizzaBox.Storage.Databases {
 		public DbSet<Topping> Toppings { get; set; }
 		public DbSet<Pizza> Pizzas { get; set; }
 		protected override void OnConfiguring(DbContextOptionsBuilder builder) {
-			builder.UseSqlServer("server=localhost;database=pizzaboxdb;user id=sa;password=Tj6601Tj?;");
+			builder.UseSqlServer("server=localhost;database=pizzaboxdb;user id=sa;password=Password12345;");
 		}
 		protected override void OnModelCreating(ModelBuilder builder) {
 			builder.Entity<Crust>().HasKey(c => c.CrustID);
+			builder.Entity<Crust>().Property(c => c.CrustID).ValueGeneratedNever();
+
 			builder.Entity<Pizza>().HasKey(p => p.PizzaID);
-			builder.Entity<PizzaTopping>().HasKey(pt => new { pt.PizzaID, pt.ToppingID });
+			builder.Entity<Pizza>().Property(p => p.PizzaID).ValueGeneratedNever();
+
 			builder.Entity<Size>().HasKey(s => s.SizeID);
+			builder.Entity<Size>().Property(s => s.SizeID).ValueGeneratedNever();
+
 			builder.Entity<Topping>().HasKey(t => t.ToppingID);
+			builder.Entity<Topping>().Property(t => t.ToppingID).ValueGeneratedNever();
+			builder.Entity<PizzaTopping>().HasKey(pt => new { pt.PizzaID, pt.ToppingID });
 
 			builder.Entity<Crust>().HasMany(c => c.Pizzas).WithOne(p => p.Crust);
 			builder.Entity<Pizza>().HasMany(p => p.PizzaToppings).WithOne(pt => pt.Pizza).HasForeignKey(pt => pt.PizzaID);

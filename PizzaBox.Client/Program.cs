@@ -1,14 +1,11 @@
 using System;
-using System.Collections.Generic;
-using PizzaBox.Client.Singletons;
-using PizzaBox.Domain.Models;
-using PizzaBox.Storage.Repositories;
+using PizzaBox.Storage.Singletons;
 
 namespace PizzaBox.Client {
 	internal class Program {
 		private static readonly PizzeriaSingleton _ps = PizzeriaSingleton.Instance;
 		private static void GetAllPizzas() {
-			foreach (var p in _ps.Get()) {
+			foreach (var p in _ps.GetPizzas()) {
 				Console.WriteLine(p);
 			}
 		}

@@ -1,4 +1,5 @@
 ## dotnet
+.queries/
 .vscode/
 **/bin/
 **/obj/

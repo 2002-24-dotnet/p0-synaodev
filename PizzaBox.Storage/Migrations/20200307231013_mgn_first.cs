@@ -2,7 +2,7 @@
 
 namespace PizzaBox.Storage.Migrations
 {
-    public partial class migration1 : Migration
+    public partial class mgn_first : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -10,8 +10,7 @@ namespace PizzaBox.Storage.Migrations
                 name: "Crusts",
                 columns: table => new
                 {
-                    CrustID = table.Column<long>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                    CrustID = table.Column<long>(nullable: false),
                     Name = table.Column<string>(nullable: true),
                     Price = table.Column<decimal>(nullable: false)
                 },
@@ -24,8 +23,7 @@ namespace PizzaBox.Storage.Migrations
                 name: "Sizes",
                 columns: table => new
                 {
-                    SizeID = table.Column<long>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                    SizeID = table.Column<long>(nullable: false),
                     Name = table.Column<string>(nullable: true),
                     Price = table.Column<decimal>(nullable: false)
                 },
@@ -38,8 +36,7 @@ namespace PizzaBox.Storage.Migrations
                 name: "Toppings",
                 columns: table => new
                 {
-                    ToppingID = table.Column<long>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                    ToppingID = table.Column<long>(nullable: false),
                     Name = table.Column<string>(nullable: true),
                     Price = table.Column<decimal>(nullable: false)
                 },
@@ -52,8 +49,7 @@ namespace PizzaBox.Storage.Migrations
                 name: "Pizzas",
                 columns: table => new
                 {
-                    PizzaID = table.Column<long>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                    PizzaID = table.Column<long>(nullable: false),
                     Name = table.Column<string>(nullable: true),
                     CrustID = table.Column<long>(nullable: true),
                     SizeID = table.Column<long>(nullable: true)
@@ -104,9 +100,9 @@ namespace PizzaBox.Storage.Migrations
                 columns: new[] { "CrustID", "Name", "Price" },
                 values: new object[,]
                 {
-                    { 637190878846027450L, "Deep Dish", 3.50m },
-                    { 637190878846071969L, "New York Style", 2.50m },
-                    { 637190878846072003L, "Thin Crust", 1.50m }
+                    { 637191978135360896L, "Deep Dish", 3.50m },
+                    { 637191978135408457L, "New York Style", 2.50m },
+                    { 637191978135408495L, "Thin Crust", 1.50m }
                 });
 
             migrationBuilder.InsertData(
@@ -114,9 +110,9 @@ namespace PizzaBox.Storage.Migrations
                 columns: new[] { "SizeID", "Name", "Price" },
                 values: new object[,]
                 {
-                    { 637190878846081234L, "Large", 12.00m },
-                    { 637190878846081559L, "Medium", 10.00m },
-                    { 637190878846081573L, "Small", 8.00m }
+                    { 637191978135418633L, "Large", 12.00m },
+                    { 637191978135418940L, "Medium", 10.00m },
+                    { 637191978135418954L, "Small", 8.00m }
                 });
 
             migrationBuilder.InsertData(
@@ -124,9 +120,9 @@ namespace PizzaBox.Storage.Migrations
                 columns: new[] { "ToppingID", "Name", "Price" },
                 values: new object[,]
                 {
-                    { 637190878846082174L, "Cheese", 0.25m },
-                    { 637190878846082438L, "Pepperoni", 0.50m },
-                    { 637190878846082455L, "Tomato Sauce", 0.75m }
+                    { 637191978135419574L, "Cheese", 0.25m },
+                    { 637191978135419840L, "Pepperoni", 0.50m },
+                    { 637191978135419851L, "Tomato Sauce", 0.75m }
                 });
 
             migrationBuilder.CreateIndex(
