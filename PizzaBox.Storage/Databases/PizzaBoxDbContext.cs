@@ -62,9 +62,9 @@ namespace PizzaBox.Storage.Databases {
 			});
 
 			builder.Entity<Pizza>().HasData(new Pizza[] {
-				new Pizza() { PizzaID = 1 },
-				new Pizza() { PizzaID = 2 },
-				new Pizza() { PizzaID = 3 }
+				new Pizza() { PizzaID = 1, CrustID = 1, SizeID = 1 },
+				new Pizza() { PizzaID = 2, CrustID = 2, SizeID = 2 },
+				new Pizza() { PizzaID = 3, CrustID = 3, SizeID = 3 }
 			});
 
 			builder.Entity<Store>().HasData(new Store[] {
@@ -80,9 +80,9 @@ namespace PizzaBox.Storage.Databases {
 			});
 
 			builder.Entity<Order>().HasData(new Order[] {
-				new Order() { OrderID = 1 },
-				new Order() { OrderID = 2 },
-				new Order() { OrderID = 3 }
+				new Order() { OrderID = 1, StoreID = 1, UserID = 1 },
+				new Order() { OrderID = 2, StoreID = 2, UserID = 2 },
+				new Order() { OrderID = 3, StoreID = 3, UserID = 3 }
 			});
 		}
 	}

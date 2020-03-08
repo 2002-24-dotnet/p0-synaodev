@@ -76,8 +76,8 @@ namespace PizzaBox.Storage.Migrations
                 columns: table => new
                 {
                     PizzaID = table.Column<long>(nullable: false),
-                    CrustID = table.Column<long>(nullable: true),
-                    SizeID = table.Column<long>(nullable: true)
+                    CrustID = table.Column<long>(nullable: false),
+                    SizeID = table.Column<long>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -87,13 +87,13 @@ namespace PizzaBox.Storage.Migrations
                         column: x => x.CrustID,
                         principalTable: "Crusts",
                         principalColumn: "CrustID",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Pizzas_Sizes_SizeID",
                         column: x => x.SizeID,
                         principalTable: "Sizes",
                         principalColumn: "SizeID",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -101,8 +101,8 @@ namespace PizzaBox.Storage.Migrations
                 columns: table => new
                 {
                     OrderID = table.Column<long>(nullable: false),
-                    UserID = table.Column<long>(nullable: true),
-                    StoreID = table.Column<long>(nullable: true)
+                    UserID = table.Column<long>(nullable: false),
+                    StoreID = table.Column<long>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -112,13 +112,13 @@ namespace PizzaBox.Storage.Migrations
                         column: x => x.StoreID,
                         principalTable: "Stores",
                         principalColumn: "StoreID",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Orders_Users_UserID",
                         column: x => x.UserID,
                         principalTable: "Users",
                         principalColumn: "UserID",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -180,33 +180,13 @@ namespace PizzaBox.Storage.Migrations
                 });
 
             migrationBuilder.InsertData(
-                table: "Orders",
-                columns: new[] { "OrderID", "StoreID", "UserID" },
-                values: new object[,]
-                {
-                    { 1L, null, null },
-                    { 2L, null, null },
-                    { 3L, null, null }
-                });
-
-            migrationBuilder.InsertData(
-                table: "Pizzas",
-                columns: new[] { "PizzaID", "CrustID", "SizeID" },
-                values: new object[,]
-                {
-                    { 1L, null, null },
-                    { 2L, null, null },
-                    { 3L, null, null }
-                });
-
-            migrationBuilder.InsertData(
                 table: "Sizes",
                 columns: new[] { "SizeID", "Name", "Price" },
                 values: new object[,]
                 {
-                    { 3L, "Small", 8.00m },
+                    { 1L, "Large", 12.00m },
                     { 2L, "Medium", 10.00m },
-                    { 1L, "Large", 12.00m }
+                    { 3L, "Small", 8.00m }
                 });
 
             migrationBuilder.InsertData(
@@ -237,6 +217,26 @@ namespace PizzaBox.Storage.Migrations
                     { 1L, "Tyler", "Cadena" },
                     { 2L, "Cody", "Benjamin" },
                     { 3L, "Mario", "Mario" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Orders",
+                columns: new[] { "OrderID", "StoreID", "UserID" },
+                values: new object[,]
+                {
+                    { 1L, 1L, 1L },
+                    { 2L, 2L, 2L },
+                    { 3L, 3L, 3L }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Pizzas",
+                columns: new[] { "PizzaID", "CrustID", "SizeID" },
+                values: new object[,]
+                {
+                    { 1L, 1L, 1L },
+                    { 2L, 2L, 2L },
+                    { 3L, 3L, 3L }
                 });
 
             migrationBuilder.CreateIndex(
