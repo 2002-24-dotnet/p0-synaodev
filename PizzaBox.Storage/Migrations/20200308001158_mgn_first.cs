@@ -100,9 +100,9 @@ namespace PizzaBox.Storage.Migrations
                 columns: new[] { "CrustID", "Name", "Price" },
                 values: new object[,]
                 {
-                    { 637191978135360896L, "Deep Dish", 3.50m },
-                    { 637191978135408457L, "New York Style", 2.50m },
-                    { 637191978135408495L, "Thin Crust", 1.50m }
+                    { 637192015186097001L, "Deep Dish", 3.50m },
+                    { 637192015186143946L, "New York Style", 2.50m },
+                    { 637192015186144002L, "Thin Crust", 1.50m }
                 });
 
             migrationBuilder.InsertData(
@@ -110,9 +110,9 @@ namespace PizzaBox.Storage.Migrations
                 columns: new[] { "SizeID", "Name", "Price" },
                 values: new object[,]
                 {
-                    { 637191978135418633L, "Large", 12.00m },
-                    { 637191978135418940L, "Medium", 10.00m },
-                    { 637191978135418954L, "Small", 8.00m }
+                    { 637192015186153543L, "Large", 12.00m },
+                    { 637192015186154006L, "Medium", 10.00m },
+                    { 637192015186154024L, "Small", 8.00m }
                 });
 
             migrationBuilder.InsertData(
@@ -120,9 +120,9 @@ namespace PizzaBox.Storage.Migrations
                 columns: new[] { "ToppingID", "Name", "Price" },
                 values: new object[,]
                 {
-                    { 637191978135419574L, "Cheese", 0.25m },
-                    { 637191978135419840L, "Pepperoni", 0.50m },
-                    { 637191978135419851L, "Tomato Sauce", 0.75m }
+                    { 637192015186154697L, "Cheese", 0.25m },
+                    { 637192015186154990L, "Pepperoni", 0.50m },
+                    { 637192015186155002L, "Tomato Sauce", 0.75m }
                 });
 
             migrationBuilder.CreateIndex(

@@ -21,19 +21,27 @@ namespace PizzaBox.Testing.Specs {
 			var pizzeria = PizzeriaSingleton.Instance;
 			var crusts = pizzeria.GetCrusts();
 			var c = crusts.Find(c => c.Name == "Pickled");
-			Assert.True(c != null);
-			c.Name = "Pockled";
-			var result = pizzeria.PutCrust(c);
-			Assert.True(result);
+			if (c == null) {
+				System.Console.WriteLine("Couldn't find \"Pickled\"!");
+				Assert.True(false);
+			} else {
+				c.Name = "Pockled";
+				var result = pizzeria.PutCrust(c);
+				Assert.True(result);
+			}
 		}
 		[Fact]
 		public void Test_RepositoryDelete() {
 			var pizzeria = PizzeriaSingleton.Instance;
 			var crusts = pizzeria.GetCrusts();
 			var c = crusts.Find(c => c.Name == "Pockled");
-			Assert.True(c != null);
-			var result = pizzeria.DeleteCrust(c);
-			Assert.True(result);
+			if (c == null) {
+				System.Console.WriteLine("Couldn't find \"Pockled\"!");
+				Assert.True(false);
+			} else {
+				var result = pizzeria.DeleteCrust(c);
+				Assert.True(result);
+			}
 		}
 	}
 }

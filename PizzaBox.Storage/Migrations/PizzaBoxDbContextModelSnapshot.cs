@@ -37,19 +37,19 @@ namespace PizzaBox.Storage.Migrations
                     b.HasData(
                         new
                         {
-                            CrustID = 637191978135360896L,
+                            CrustID = 637192015186097001L,
                             Name = "Deep Dish",
                             Price = 3.50m
                         },
                         new
                         {
-                            CrustID = 637191978135408457L,
+                            CrustID = 637192015186143946L,
                             Name = "New York Style",
                             Price = 2.50m
                         },
                         new
                         {
-                            CrustID = 637191978135408495L,
+                            CrustID = 637192015186144002L,
                             Name = "Thin Crust",
                             Price = 1.50m
                         });
@@ -111,19 +111,19 @@ namespace PizzaBox.Storage.Migrations
                     b.HasData(
                         new
                         {
-                            SizeID = 637191978135418633L,
+                            SizeID = 637192015186153543L,
                             Name = "Large",
                             Price = 12.00m
                         },
                         new
                         {
-                            SizeID = 637191978135418940L,
+                            SizeID = 637192015186154006L,
                             Name = "Medium",
                             Price = 10.00m
                         },
                         new
                         {
-                            SizeID = 637191978135418954L,
+                            SizeID = 637192015186154024L,
                             Name = "Small",
                             Price = 8.00m
                         });
@@ -147,19 +147,19 @@ namespace PizzaBox.Storage.Migrations
                     b.HasData(
                         new
                         {
-                            ToppingID = 637191978135419574L,
+                            ToppingID = 637192015186154697L,
                             Name = "Cheese",
                             Price = 0.25m
                         },
                         new
                         {
-                            ToppingID = 637191978135419840L,
+                            ToppingID = 637192015186154990L,
                             Name = "Pepperoni",
                             Price = 0.50m
                         },
                         new
                         {
-                            ToppingID = 637191978135419851L,
+                            ToppingID = 637192015186155002L,
                             Name = "Tomato Sauce",
                             Price = 0.75m
                         });
