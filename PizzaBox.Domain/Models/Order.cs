@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using System.Collections.Generic;
 using PizzaBox.Domain.Abstracts;
 
@@ -8,6 +9,15 @@ namespace PizzaBox.Domain.Models {
 		public long UserID { get; set; }
 		public long StoreID { get; set; }
 		public DateTime DateTime { get; set; }
+		public bool Completed { get; set; }
+		public decimal Price {
+			get {
+				return Math.Min(
+					OrderPizzas.Sum(op => op.Pizza.Price), 
+					250.00M
+				);
+			}
+		}
 		#region NAVIGATIONAL PROPERTIES
 		public User User { get; set; }
 		public Store Store { get; set; }

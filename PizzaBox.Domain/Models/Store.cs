@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using System.Collections.Generic;
 using PizzaBox.Domain.Abstracts;
 
@@ -7,6 +8,11 @@ namespace PizzaBox.Domain.Models {
 		public long StoreID { get; set; }
 		public string Name { get; set; }
 		public string Location { get; set; }
+		public decimal Revanue {
+			get {
+				return Orders.Sum(o => o.Completed ? o.Price : 0.0M);
+			}
+		}
 		#region NAVIGATIONAL PROPERTIES
 		public List<Order> Orders { get; set; }
 		#endregion

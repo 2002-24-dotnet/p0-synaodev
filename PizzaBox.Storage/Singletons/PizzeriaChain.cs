@@ -4,10 +4,10 @@ using PizzaBox.Domain.Models;
 using PizzaBox.Storage.Repositories;
 
 namespace PizzaBox.Storage.Singletons {
-	public class PizzeriaSingleton {
-		private PizzeriaSingleton() {}
-		private static readonly PizzeriaSingleton _ps = new PizzeriaSingleton();
-		public static PizzeriaSingleton Instance {
+	public class PizzeriaChain {
+		private PizzeriaChain() {}
+		private static readonly PizzeriaChain _ps = new PizzeriaChain();
+		public static PizzeriaChain Instance {
 			get { return _ps; }
 		}
 		private readonly PizzaRepository _pr = new PizzaRepository();
@@ -97,10 +97,10 @@ namespace PizzaBox.Storage.Singletons {
 			};
 			return _tr.Post(t);
 		}
-		public bool PostUser(string first_name, string last_name) {
+		public bool PostUser(string username, string password) {
 			User u = new User() {
-				FirstName = first_name,
-				LastName = last_name
+				Username = username,
+				Password = password
 			};
 			return _ur.Post(u);
 		}
@@ -109,6 +109,7 @@ namespace PizzaBox.Storage.Singletons {
 				User = user,
 				Store = store,
 				DateTime = datetime,
+				Completed = false,
 				OrderPizzas = new List<OrderPizza>()
 			};
 			foreach (Pizza p in pizzas) {
@@ -169,6 +170,10 @@ namespace PizzaBox.Storage.Singletons {
 		}
 		public bool DeleteStore(Store s) {
 			return _rr.Delete(s);
+		}
+		// OTHER
+		public User FindUserByName(string username) {
+			return _ur.FindByName(username);
 		}
 	}
 }

@@ -69,20 +69,18 @@ namespace PizzaBox.Storage.Databases {
 
 			builder.Entity<Store>().HasData(new Store[] {
 				new Store() { StoreID = 1, Name = "Eat At Joe's", Location = "Albequerque" },
-				new Store() { StoreID = 2, Name = "Muggy Pizza", Location = "New York" },
-				new Store() { StoreID = 3, Name = "Biff Jerky", Location = "Russia" }
+				new Store() { StoreID = 2, Name = "Muggy Pizza", Location = "New York" }
 			});
 
 			builder.Entity<User>().HasData(new User[] {
-				new User() { UserID = 1, FirstName = "Tyler", LastName = "Cadena" },
-				new User() { UserID = 2, FirstName = "Cody", LastName = "Benjamin" },
-				new User() { UserID = 3, FirstName = "Mario", LastName = "Mario" }
+				new User() { UserID = 1, Username = "Tyler", Password = "Cadena" },
+				new User() { UserID = 2, Username = "Cody", Password = "Benjamin" },
+				new User() { UserID = 3, Username = "Mario", Password = "Mario" }
 			});
 
 			builder.Entity<Order>().HasData(new Order[] {
-				new Order() { OrderID = 1, StoreID = 1, UserID = 1 },
-				new Order() { OrderID = 2, StoreID = 2, UserID = 2 },
-				new Order() { OrderID = 3, StoreID = 3, UserID = 3 }
+				new Order() { OrderID = 1, StoreID = 1, UserID = 1, Completed = true },
+				new Order() { OrderID = 2, StoreID = 2, UserID = 2, Completed = true }
 			});
 		}
 	}

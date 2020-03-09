@@ -60,6 +60,9 @@ namespace PizzaBox.Storage.Migrations
                     b.Property<long>("OrderID")
                         .HasColumnType("bigint");
 
+                    b.Property<bool>("Completed")
+                        .HasColumnType("bit");
+
                     b.Property<DateTime>("DateTime")
                         .HasColumnType("datetime2");
 
@@ -81,6 +84,7 @@ namespace PizzaBox.Storage.Migrations
                         new
                         {
                             OrderID = 1L,
+                            Completed = true,
                             DateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             StoreID = 1L,
                             UserID = 1L
@@ -88,16 +92,10 @@ namespace PizzaBox.Storage.Migrations
                         new
                         {
                             OrderID = 2L,
+                            Completed = true,
                             DateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             StoreID = 2L,
                             UserID = 2L
-                        },
-                        new
-                        {
-                            OrderID = 3L,
-                            DateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            StoreID = 3L,
-                            UserID = 3L
                         });
                 });
 
@@ -234,12 +232,6 @@ namespace PizzaBox.Storage.Migrations
                             StoreID = 2L,
                             Location = "New York",
                             Name = "Muggy Pizza"
-                        },
-                        new
-                        {
-                            StoreID = 3L,
-                            Location = "Russia",
-                            Name = "Biff Jerky"
                         });
                 });
 
@@ -284,10 +276,10 @@ namespace PizzaBox.Storage.Migrations
                     b.Property<long>("UserID")
                         .HasColumnType("bigint");
 
-                    b.Property<string>("FirstName")
+                    b.Property<string>("Password")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("LastName")
+                    b.Property<string>("Username")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("UserID");
@@ -298,20 +290,20 @@ namespace PizzaBox.Storage.Migrations
                         new
                         {
                             UserID = 1L,
-                            FirstName = "Tyler",
-                            LastName = "Cadena"
+                            Password = "Cadena",
+                            Username = "Tyler"
                         },
                         new
                         {
                             UserID = 2L,
-                            FirstName = "Cody",
-                            LastName = "Benjamin"
+                            Password = "Benjamin",
+                            Username = "Cody"
                         },
                         new
                         {
                             UserID = 3L,
-                            FirstName = "Mario",
-                            LastName = "Mario"
+                            Password = "Mario",
+                            Username = "Mario"
                         });
                 });
 

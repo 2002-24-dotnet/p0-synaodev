@@ -5,20 +5,20 @@ namespace PizzaBox.Testing.Specs {
 	public class PizzaTests {
 		[Fact]
 		public void Test_RepositoryGet() {
-			var pizzeria = PizzeriaSingleton.Instance;
+			var pizzeria = PizzeriaChain.Instance;
 			var actual = pizzeria.GetCrusts();
 			Assert.True(actual != null);
 			Assert.True(actual.Count >= 0);
 		}
 		[Fact]
 		public void Test_RepositoryPost() {
-			var pizzeria = PizzeriaSingleton.Instance;
+			var pizzeria = PizzeriaChain.Instance;
 			var result = pizzeria.PostCrust("Pickled", 2.15M);
 			Assert.True(result);
 		}
 		[Fact]
 		public void Test_RepositoryPut() {
-			var pizzeria = PizzeriaSingleton.Instance;
+			var pizzeria = PizzeriaChain.Instance;
 			var crusts = pizzeria.GetCrusts();
 			var c = crusts.Find(c => c.Name == "Pickled");
 			if (c == null) {
@@ -32,7 +32,7 @@ namespace PizzaBox.Testing.Specs {
 		}
 		[Fact]
 		public void Test_RepositoryDelete() {
-			var pizzeria = PizzeriaSingleton.Instance;
+			var pizzeria = PizzeriaChain.Instance;
 			var crusts = pizzeria.GetCrusts();
 			var c = crusts.Find(c => c.Name == "Pockled");
 			if (c == null) {

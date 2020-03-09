@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace PizzaBox.Storage.Migrations
 {
-    public partial class mgn_one : Migration
+    public partial class mgn1 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -64,8 +64,8 @@ namespace PizzaBox.Storage.Migrations
                 columns: table => new
                 {
                     UserID = table.Column<long>(nullable: false),
-                    FirstName = table.Column<string>(nullable: true),
-                    LastName = table.Column<string>(nullable: true)
+                    Username = table.Column<string>(nullable: true),
+                    Password = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -104,7 +104,8 @@ namespace PizzaBox.Storage.Migrations
                     OrderID = table.Column<long>(nullable: false),
                     UserID = table.Column<long>(nullable: false),
                     StoreID = table.Column<long>(nullable: false),
-                    DateTime = table.Column<DateTime>(nullable: false)
+                    DateTime = table.Column<DateTime>(nullable: false),
+                    Completed = table.Column<bool>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -197,8 +198,7 @@ namespace PizzaBox.Storage.Migrations
                 values: new object[,]
                 {
                     { 1L, "Albequerque", "Eat At Joe's" },
-                    { 2L, "New York", "Muggy Pizza" },
-                    { 3L, "Russia", "Biff Jerky" }
+                    { 2L, "New York", "Muggy Pizza" }
                 });
 
             migrationBuilder.InsertData(
@@ -213,22 +213,21 @@ namespace PizzaBox.Storage.Migrations
 
             migrationBuilder.InsertData(
                 table: "Users",
-                columns: new[] { "UserID", "FirstName", "LastName" },
+                columns: new[] { "UserID", "Password", "Username" },
                 values: new object[,]
                 {
-                    { 1L, "Tyler", "Cadena" },
-                    { 2L, "Cody", "Benjamin" },
+                    { 1L, "Cadena", "Tyler" },
+                    { 2L, "Benjamin", "Cody" },
                     { 3L, "Mario", "Mario" }
                 });
 
             migrationBuilder.InsertData(
                 table: "Orders",
-                columns: new[] { "OrderID", "DateTime", "StoreID", "UserID" },
+                columns: new[] { "OrderID", "Completed", "DateTime", "StoreID", "UserID" },
                 values: new object[,]
                 {
-                    { 1L, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1L, 1L },
-                    { 2L, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 2L, 2L },
-                    { 3L, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 3L, 3L }
+                    { 1L, true, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1L, 1L },
+                    { 2L, true, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 2L, 2L }
                 });
 
             migrationBuilder.InsertData(

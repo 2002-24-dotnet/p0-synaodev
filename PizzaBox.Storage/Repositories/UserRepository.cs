@@ -14,5 +14,9 @@ namespace PizzaBox.Storage.Repositories {
 		public override User Get(long ID) {
 			return Table.SingleOrDefault(u => u.UserID == ID);
 		}
+		public User FindByName(string username) {
+			List<User> users = Get();
+			return users.Find(u => u.Username == username);
+		}
 	}
 }
