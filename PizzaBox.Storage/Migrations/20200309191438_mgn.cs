@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace PizzaBox.Storage.Migrations
 {
-    public partial class mgn1 : Migration
+    public partial class mgn : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -197,8 +197,8 @@ namespace PizzaBox.Storage.Migrations
                 columns: new[] { "StoreID", "Location", "Name" },
                 values: new object[,]
                 {
-                    { 1L, "Albequerque", "Eat At Joe's" },
-                    { 2L, "New York", "Muggy Pizza" }
+                    { 637193600784156808L, "Albequerque", "Eat At Joe's" },
+                    { 637193600784157541L, "New York", "Muggy Pizza" }
                 });
 
             migrationBuilder.InsertData(
@@ -206,9 +206,11 @@ namespace PizzaBox.Storage.Migrations
                 columns: new[] { "ToppingID", "Name", "Price" },
                 values: new object[,]
                 {
-                    { 1L, "Cheese", 0.25m },
-                    { 2L, "Pepperoni", 0.50m },
-                    { 3L, "Tomato Sauce", 0.75m }
+                    { 637193600784154482L, "Cheese", 0.25m },
+                    { 637193600784154787L, "Tomato Sauce", 0.75m },
+                    { 637193600784154805L, "Pepperoni", 0.50m },
+                    { 637193600784154808L, "Bacon", 0.45m },
+                    { 637193600784154811L, "Anchovies", 1.00m }
                 });
 
             migrationBuilder.InsertData(
@@ -216,29 +218,25 @@ namespace PizzaBox.Storage.Migrations
                 columns: new[] { "UserID", "Password", "Username" },
                 values: new object[,]
                 {
-                    { 1L, "Cadena", "Tyler" },
-                    { 2L, "Benjamin", "Cody" },
-                    { 3L, "Mario", "Mario" }
-                });
-
-            migrationBuilder.InsertData(
-                table: "Orders",
-                columns: new[] { "OrderID", "Completed", "DateTime", "StoreID", "UserID" },
-                values: new object[,]
-                {
-                    { 1L, true, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1L, 1L },
-                    { 2L, true, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 2L, 2L }
+                    { 637193600784158238L, "Cadena", "Tyler" },
+                    { 637193600784158931L, "Benjamin", "Cody" },
+                    { 637193600784158967L, "Mario", "Mario" }
                 });
 
             migrationBuilder.InsertData(
                 table: "Pizzas",
                 columns: new[] { "PizzaID", "CrustID", "SizeID" },
-                values: new object[,]
-                {
-                    { 1L, 1L, 1L },
-                    { 2L, 2L, 2L },
-                    { 3L, 3L, 3L }
-                });
+                values: new object[] { 637193600784155448L, 1L, 1L });
+
+            migrationBuilder.InsertData(
+                table: "Pizzas",
+                columns: new[] { "PizzaID", "CrustID", "SizeID" },
+                values: new object[] { 637193600784156157L, 2L, 2L });
+
+            migrationBuilder.InsertData(
+                table: "Pizzas",
+                columns: new[] { "PizzaID", "CrustID", "SizeID" },
+                values: new object[] { 637193600784156199L, 3L, 3L });
 
             migrationBuilder.CreateIndex(
                 name: "IX_OrderPizza_OrderID",

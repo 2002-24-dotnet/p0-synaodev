@@ -7,7 +7,7 @@ namespace PizzaBox.Domain.Models {
 		public long UserID { get; set; }
 		public string Username { get; set; }
 		public string Password { get; set; }
-		#region NAVIGATIONAL PROPERTIES
+		#region NAVIGATION PROPERTIES
 		public List<Order> Orders { get; set; }
 		#endregion
 		public User() {

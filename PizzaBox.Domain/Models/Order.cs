@@ -29,5 +29,14 @@ namespace PizzaBox.Domain.Models {
 		public override long GetID() {
 			return OrderID;
 		}
+		public override string ToString() {
+			string result = $"Time: {DateTime} User: {User.Username} Store: {Store.Name} at {Store.Location} Pizzas: ";
+			foreach (OrderPizza op in OrderPizzas) {
+				Pizza p = op.Pizza;
+				result += $"{op.ToString()} ";
+			}
+			result += $"Price Total: {Price}";
+			return result;
+		}
 	}
 }

@@ -64,14 +64,18 @@ namespace PizzaBox.Storage.Singletons {
 		// POST
 		public bool PostPizza(Crust crust, Size size, List<Topping> toppings) {
 			Pizza p = new Pizza() {
-				Crust = crust,
-				Size = size,
-				PizzaToppings = new List<PizzaTopping>()
+				CrustID = crust.CrustID,
+				SizeID = size.SizeID,
+				// PizzaToppings = new List<PizzaTopping>()
 			};
 			foreach (Topping t in toppings) {
 				p.PizzaToppings.Add(new PizzaTopping() {
-					Pizza = p,
-					Topping = t
+					PizzaID = p.PizzaID,
+					ToppingID = t.ToppingID
+				});
+				t.PizzaToppings.Add(new PizzaTopping() {
+					PizzaID = p.PizzaID,
+					ToppingID = t.ToppingID
 				});
 			}
 			return _pr.Post(p);
@@ -106,16 +110,16 @@ namespace PizzaBox.Storage.Singletons {
 		}
 		public bool PostOrder(User user, Store store, DateTime datetime, List<Pizza> pizzas) {
 			Order o = new Order() {
-				User = user,
-				Store = store,
+				UserID = user.UserID,
+				StoreID = store.StoreID,
 				DateTime = datetime,
 				Completed = false,
 				OrderPizzas = new List<OrderPizza>()
 			};
 			foreach (Pizza p in pizzas) {
 				o.OrderPizzas.Add(new OrderPizza() {
-					Order = o,
-					Pizza = p
+					OrderID = o.OrderID,
+					PizzaID = p.PizzaID
 				});
 			}
 			return _or.Post(o);

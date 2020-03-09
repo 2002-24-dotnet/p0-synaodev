@@ -19,17 +19,17 @@ namespace PizzaBox.Storage.Repositories {
 		}
 		public bool Post(T entity) {
 			Table.Add(entity);
-			return Context.SaveChanges() == 1;
+			return Context.SaveChanges() >= 1;
 		}
 		public bool Put(T right) {
 			long ID = right.GetID();
 			T left = Get(ID);
 			left = right;
-			return Context.SaveChanges() == 1;
+			return Context.SaveChanges() >= 1;
 		}
 		public bool Delete(T entity) {
 			Table.Remove(entity);
-			return Context.SaveChanges() == 1;
+			return Context.SaveChanges() >= 1;
 		}
 	}
 }

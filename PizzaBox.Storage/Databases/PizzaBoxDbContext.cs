@@ -17,31 +17,49 @@ namespace PizzaBox.Storage.Databases {
 		protected override void OnModelCreating(ModelBuilder builder) {
 			builder.Entity<Crust>().HasKey(c => c.CrustID);
 			builder.Entity<Crust>().Property(c => c.CrustID).ValueGeneratedNever();
+
 			builder.Entity<Pizza>().HasKey(p => p.PizzaID);
 			builder.Entity<Pizza>().Property(p => p.PizzaID).ValueGeneratedNever();
+			//builder.Entity<Pizza>().Property(p => p.CrustID).ValueGeneratedNever();
+			//builder.Entity<Pizza>().Property(p => p.SizeID).ValueGeneratedNever();
+
 			builder.Entity<Size>().HasKey(s => s.SizeID);
 			builder.Entity<Size>().Property(s => s.SizeID).ValueGeneratedNever();
+
 			builder.Entity<Topping>().HasKey(t => t.ToppingID);
 			builder.Entity<Topping>().Property(t => t.ToppingID).ValueGeneratedNever();
+
 			builder.Entity<User>().HasKey(u => u.UserID);
 			builder.Entity<User>().Property(u => u.UserID).ValueGeneratedNever();
+
 			builder.Entity<Order>().HasKey(o => o.OrderID);
 			builder.Entity<Order>().Property(o => o.OrderID).ValueGeneratedNever();
+			//builder.Entity<Order>().Property(o => o.StoreID).ValueGeneratedNever();
+			//builder.Entity<Order>().Property(o => o.UserID).ValueGeneratedNever();
+
 			builder.Entity<Store>().HasKey(r => r.StoreID);
 			builder.Entity<Store>().Property(r => r.StoreID).ValueGeneratedNever();
 
-			builder.Entity<PizzaTopping>().HasKey(pt => new { pt.PizzaID, pt.ToppingID });
-			builder.Entity<OrderPizza>().HasKey(po => new { po.PizzaID, po.OrderID });
-
-			builder.Entity<Crust>().HasMany(c => c.Pizzas).WithOne(p => p.Crust);
-			builder.Entity<Size>().HasMany(s => s.Pizzas).WithOne(p => p.Size);
-			builder.Entity<User>().HasMany(u => u.Orders).WithOne(o => o.User);
-			builder.Entity<Store>().HasMany(r => r.Orders).WithOne(o => o.Store);
+			builder.Entity<Crust>().HasMany(c => c.Pizzas).WithOne(p => p.Crust).HasForeignKey(p => p.CrustID);
+			builder.Entity<Size>().HasMany(s => s.Pizzas).WithOne(p => p.Size).HasForeignKey(p => p.SizeID);
+			builder.Entity<User>().HasMany(u => u.Orders).WithOne(o => o.User).HasForeignKey(o => o.UserID);
+			builder.Entity<Store>().HasMany(r => r.Orders).WithOne(o => o.Store).HasForeignKey(r => r.StoreID);
 
 			builder.Entity<Pizza>().HasMany(p => p.PizzaToppings).WithOne(pt => pt.Pizza).HasForeignKey(pt => pt.PizzaID);
 			builder.Entity<Topping>().HasMany(t => t.PizzaToppings).WithOne(pt => pt.Topping).HasForeignKey(pt => pt.ToppingID);
 			builder.Entity<Pizza>().HasMany(p => p.OrderPizzas).WithOne(po => po.Pizza).HasForeignKey(po => po.PizzaID);
 			builder.Entity<Order>().HasMany(o => o.OrderPizzas).WithOne(po => po.Order).HasForeignKey(po => po.OrderID);
+
+			builder.Entity<PizzaTopping>().HasKey(pt => new { pt.PizzaID, pt.ToppingID });
+			//builder.Entity<PizzaTopping>().Property(pt => pt.PizzaID).ValueGeneratedNever();
+			//builder.Entity<PizzaTopping>().Property(pt => pt.ToppingID).ValueGeneratedNever();
+			builder.Entity<OrderPizza>().HasKey(po => new { po.PizzaID, po.OrderID });
+			//builder.Entity<OrderPizza>().Property(po => po.OrderID).ValueGeneratedNever();
+			//builder.Entity<OrderPizza>().Property(po => po.PizzaID).ValueGeneratedNever();
+			builder.Entity<PizzaTopping>().HasOne(pt => pt.Pizza).WithMany(p => p.PizzaToppings).HasForeignKey(p => p.PizzaID);
+			builder.Entity<PizzaTopping>().HasOne(pt => pt.Topping).WithMany(t => t.PizzaToppings).HasForeignKey(t => t.ToppingID);
+			builder.Entity<OrderPizza>().HasOne(op => op.Order).WithMany(o => o.OrderPizzas).HasForeignKey(o => o.OrderID);
+			builder.Entity<OrderPizza>().HasOne(op => op.Pizza).WithMany(p => p.OrderPizzas).HasForeignKey(p => p.PizzaID);
 
 			builder.Entity<Crust>().HasData(new Crust[] {
 				new Crust() { CrustID = 1, Name = "Deep Dish", Price = 3.50M },
@@ -56,32 +74,34 @@ namespace PizzaBox.Storage.Databases {
 			});
 
 			builder.Entity<Topping>().HasData(new Topping[] {
-				new Topping() { ToppingID = 1, Name = "Cheese", Price = 0.25M },
-				new Topping() { ToppingID = 2, Name = "Pepperoni", Price = 0.50M },
-				new Topping() { ToppingID = 3, Name = "Tomato Sauce", Price = 0.75M }
+				new Topping() { Name = "Cheese", Price = 0.25M },
+				new Topping() { Name = "Tomato Sauce", Price = 0.75M },
+				new Topping() { Name = "Pepperoni", Price = 0.50M },
+				new Topping() { Name = "Bacon", Price = 0.45M },
+				new Topping() { Name = "Anchovies", Price = 1.00M }
 			});
 
 			builder.Entity<Pizza>().HasData(new Pizza[] {
-				new Pizza() { PizzaID = 1, CrustID = 1, SizeID = 1 },
-				new Pizza() { PizzaID = 2, CrustID = 2, SizeID = 2 },
-				new Pizza() { PizzaID = 3, CrustID = 3, SizeID = 3 }
+				new Pizza() { CrustID = 1, SizeID = 1 },
+				new Pizza() { CrustID = 2, SizeID = 2 },
+				new Pizza() { CrustID = 3, SizeID = 3 }
 			});
 
 			builder.Entity<Store>().HasData(new Store[] {
-				new Store() { StoreID = 1, Name = "Eat At Joe's", Location = "Albequerque" },
-				new Store() { StoreID = 2, Name = "Muggy Pizza", Location = "New York" }
+				new Store() { Name = "Eat At Joe's", Location = "Albequerque" },
+				new Store() { Name = "Muggy Pizza", Location = "New York" }
 			});
 
 			builder.Entity<User>().HasData(new User[] {
-				new User() { UserID = 1, Username = "Tyler", Password = "Cadena" },
-				new User() { UserID = 2, Username = "Cody", Password = "Benjamin" },
-				new User() { UserID = 3, Username = "Mario", Password = "Mario" }
+				new User() { Username = "Tyler", Password = "Cadena" },
+				new User() { Username = "Cody", Password = "Benjamin" },
+				new User() { Username = "Mario", Password = "Mario" }
 			});
 
-			builder.Entity<Order>().HasData(new Order[] {
+			/*builder.Entity<Order>().HasData(new Order[] {
 				new Order() { OrderID = 1, StoreID = 1, UserID = 1, Completed = true },
 				new Order() { OrderID = 2, StoreID = 2, UserID = 2, Completed = true }
-			});
+			});*/
 		}
 	}
 }

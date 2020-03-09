@@ -15,8 +15,7 @@ namespace PizzaBox.Storage.Repositories {
 			return Table.SingleOrDefault(u => u.UserID == ID);
 		}
 		public User FindByName(string username) {
-			List<User> users = Get();
-			return users.Find(u => u.Username == username);
+			return Table.Where(u => u.Username == username).First();
 		}
 	}
 }

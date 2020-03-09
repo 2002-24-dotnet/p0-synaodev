@@ -12,6 +12,7 @@ namespace PizzaBox.Storage.Repositories {
 			return Table
 				.Include(o => o.OrderPizzas)
 				.Include(o => o.User)
+				.Include(o => o.Store)
 			.ToList();
 		}
 		public override Order Get(long ID) {

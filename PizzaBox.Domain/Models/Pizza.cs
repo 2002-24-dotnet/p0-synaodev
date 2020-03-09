@@ -28,5 +28,12 @@ namespace PizzaBox.Domain.Models {
 		public override long GetID() {
 			return PizzaID;
 		}
+		public override string ToString() {
+			string result = $"{Crust.Name} {Size.Name} ";
+			foreach (PizzaTopping pt in PizzaToppings) {
+				result += $"{pt.Topping.Name} ";
+			}
+			return result;
+		}
 	}
 }

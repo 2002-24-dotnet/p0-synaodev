@@ -79,24 +79,6 @@ namespace PizzaBox.Storage.Migrations
                     b.HasIndex("UserID");
 
                     b.ToTable("Orders");
-
-                    b.HasData(
-                        new
-                        {
-                            OrderID = 1L,
-                            Completed = true,
-                            DateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            StoreID = 1L,
-                            UserID = 1L
-                        },
-                        new
-                        {
-                            OrderID = 2L,
-                            Completed = true,
-                            DateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            StoreID = 2L,
-                            UserID = 2L
-                        });
                 });
 
             modelBuilder.Entity("PizzaBox.Domain.Models.OrderPizza", b =>
@@ -136,19 +118,19 @@ namespace PizzaBox.Storage.Migrations
                     b.HasData(
                         new
                         {
-                            PizzaID = 1L,
+                            PizzaID = 637193600784155448L,
                             CrustID = 1L,
                             SizeID = 1L
                         },
                         new
                         {
-                            PizzaID = 2L,
+                            PizzaID = 637193600784156157L,
                             CrustID = 2L,
                             SizeID = 2L
                         },
                         new
                         {
-                            PizzaID = 3L,
+                            PizzaID = 637193600784156199L,
                             CrustID = 3L,
                             SizeID = 3L
                         });
@@ -223,13 +205,13 @@ namespace PizzaBox.Storage.Migrations
                     b.HasData(
                         new
                         {
-                            StoreID = 1L,
+                            StoreID = 637193600784156808L,
                             Location = "Albequerque",
                             Name = "Eat At Joe's"
                         },
                         new
                         {
-                            StoreID = 2L,
+                            StoreID = 637193600784157541L,
                             Location = "New York",
                             Name = "Muggy Pizza"
                         });
@@ -253,21 +235,33 @@ namespace PizzaBox.Storage.Migrations
                     b.HasData(
                         new
                         {
-                            ToppingID = 1L,
+                            ToppingID = 637193600784154482L,
                             Name = "Cheese",
                             Price = 0.25m
                         },
                         new
                         {
-                            ToppingID = 2L,
+                            ToppingID = 637193600784154787L,
+                            Name = "Tomato Sauce",
+                            Price = 0.75m
+                        },
+                        new
+                        {
+                            ToppingID = 637193600784154805L,
                             Name = "Pepperoni",
                             Price = 0.50m
                         },
                         new
                         {
-                            ToppingID = 3L,
-                            Name = "Tomato Sauce",
-                            Price = 0.75m
+                            ToppingID = 637193600784154808L,
+                            Name = "Bacon",
+                            Price = 0.45m
+                        },
+                        new
+                        {
+                            ToppingID = 637193600784154811L,
+                            Name = "Anchovies",
+                            Price = 1.00m
                         });
                 });
 
@@ -289,19 +283,19 @@ namespace PizzaBox.Storage.Migrations
                     b.HasData(
                         new
                         {
-                            UserID = 1L,
+                            UserID = 637193600784158238L,
                             Password = "Cadena",
                             Username = "Tyler"
                         },
                         new
                         {
-                            UserID = 2L,
+                            UserID = 637193600784158931L,
                             Password = "Benjamin",
                             Username = "Cody"
                         },
                         new
                         {
-                            UserID = 3L,
+                            UserID = 637193600784158967L,
                             Password = "Mario",
                             Username = "Mario"
                         });

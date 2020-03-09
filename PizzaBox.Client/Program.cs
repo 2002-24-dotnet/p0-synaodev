@@ -1,4 +1,5 @@
 using System;
+using System.Threading;
 using System.Collections.Generic;
 using PizzaBox.Domain.Models;
 using PizzaBox.Storage.Singletons;
@@ -9,22 +10,30 @@ namespace PizzaBox.Client {
 		private static void Main(string[] args) {
 			Console.WriteLine("Welcome to Tyler's Pizzaria!");
 			while (true) {
-				Console.WriteLine("Do you have a user account? (y/n)");
-				if (Console.ReadKey().Key == ConsoleKey.Y) {
+				Console.WriteLine("Do you have a user account? (y/n) ");
+				if (Console.ReadKey(true).Key == ConsoleKey.Y) {
 					User user = Login();
 					if (user != null) {
+						Console.WriteLine("Would you like to see all current orders? (y/n) ");
+						if (Console.ReadKey(true).Key == ConsoleKey.Y) {
+							List<Order> orders = _pc.GetOrders();
+							foreach (Order o in orders) {
+								Console.WriteLine(o.ToString());
+							}
+							System.Threading.Thread.Sleep(1000);
+						}
 						WhichStore(user);
 					}
 				}
-				Console.WriteLine("Would you like to register a new account? (y/n)");
-				if (Console.ReadKey().Key == ConsoleKey.Y) {
+				Console.WriteLine("Would you like to register a new account? (y/n) ");
+				if (Console.ReadKey(true).Key == ConsoleKey.Y) {
 					User user = Register();
 					if (user != null) {
 						WhichStore(user);
 					}
 				}
-				Console.WriteLine("Would you like to quit? (y/n)");
-				if (Console.ReadKey().Key == ConsoleKey.Y) {
+				Console.WriteLine("Would you like to quit? (y/n) ");
+				if (Console.ReadKey(true).Key == ConsoleKey.Y) {
 					break;
 				}
 				Console.Clear();
@@ -35,6 +44,10 @@ namespace PizzaBox.Client {
 			Console.WriteLine("Beginning login...");
 			Console.WriteLine("Please enter your username: ");
 			string username = Console.ReadLine();
+			if (username.Length == 0) {
+				Console.WriteLine("Username hasn't been input...");
+				return null;
+			}
 			User user = _pc.FindUserByName(username);
 			if (user == null) {
 				Console.WriteLine("A user with that username doesn't exist!");
@@ -42,6 +55,10 @@ namespace PizzaBox.Client {
 			}
 			Console.WriteLine("Please enter your password: ");
 			string password = Console.ReadLine();
+			if (password.Length == 0) {
+				Console.WriteLine("Password hasn't been input...");
+				return null;
+			}
 			if (user.Password != password) {
 				Console.WriteLine("Password is incorrect!");
 				return null;
@@ -91,8 +108,8 @@ namespace PizzaBox.Client {
 			Console.WriteLine("Here is your order...\n");
 			Console.WriteLine("User: {0}\nStore: {1} at {2}\nPizzas: ", user.Username, store.Name, store.Location);
 			PrintAllPizzas(pizzas);
-			Console.WriteLine("Is this all correct? (y/n)");
-			if (Console.ReadKey().Key != ConsoleKey.Y) {
+			Console.WriteLine("Is this all correct? (y/n) ");
+			if (Console.ReadKey(true).Key != ConsoleKey.Y) {
 				Console.WriteLine("Never mind...");
 				return false;
 			}
@@ -111,13 +128,13 @@ namespace PizzaBox.Client {
 			int index = 0;
 			Console.Clear();
 			while (ordering.Count < 50) {
-				Console.WriteLine("You have {0} pizzas. Would you like to add one? (y/n)", ordering.Count);
-				if (Console.ReadKey().Key != ConsoleKey.Y) {
+				Console.WriteLine("You have {0} pizzas. Would you like to add one? (y/n) ", ordering.Count);
+				if (Console.ReadKey(true).Key != ConsoleKey.Y) {
 					break;
 				}
 				Console.Clear();
 				PrintAllPizzas(pizza_list);
-				Console.WriteLine("Which pizza do you want? (#): ");
+				Console.WriteLine("Which pizza do you want? (#) ");
 				if (!int.TryParse(Console.ReadLine(), out index)) {
 					Console.WriteLine("This isn't a number...");
 				} else if (index < 1 || index > pizza_list.Count) {
@@ -138,8 +155,8 @@ namespace PizzaBox.Client {
 		}
 		private static bool BeenTwoHours(User user, Store store) {
 			DateTime now = DateTime.Now;
-			if (user.Orders.Count == 0) {
-				return true;
+			if (user.Orders == null || user.Orders.Count == 0) {
+				return false;
 			}
 			Order order = user.Orders[user.Orders.Count - 1];
 			if (now.Subtract(order.DateTime) >= TimeSpan.FromHours(2.0)) {
@@ -157,28 +174,28 @@ namespace PizzaBox.Client {
 			while (true) {
 				Console.Clear();
 				PrintAllStores(stores);
-				Console.WriteLine("Which store is closest for you? (#): ");
+				Console.WriteLine("Which store is closest for you? (#) ");
 				if (!int.TryParse(Console.ReadLine(), out index)) {
 					Console.WriteLine("This isn't a number...");
 				} else if (index < 1 || index > stores.Count) {
 					Console.WriteLine("That number isn't on the list!");
 				} else {
 					Store store = stores[index - 1];
-					if (!BeenTwoHours(user, store)) {
+					if (BeenTwoHours(user, store)) {
 						Console.WriteLine("Would you like to select another store?");
-						if (Console.ReadKey().Key != ConsoleKey.Y) {
+						if (Console.ReadKey(true).Key != ConsoleKey.Y) {
 							index = 0;
 							break;
 						}
 					} else if (!WhichPizza(user, store)) {
-						Console.WriteLine("Would you like try again? (y/n)");
-						if (Console.ReadKey().Key != ConsoleKey.Y) {
+						Console.WriteLine("Would you like try again? (y/n) ");
+						if (Console.ReadKey(true).Key != ConsoleKey.Y) {
 							index = 0;
 							break;
 						}
 					} else {
-						Console.WriteLine("Would you like to make another order? (y/n)");
-						if (Console.ReadKey().Key != ConsoleKey.Y) {
+						Console.WriteLine("Would you like to make another order? (y/n) ");
+						if (Console.ReadKey(true).Key != ConsoleKey.Y) {
 							index = 0;
 							break;
 						}
