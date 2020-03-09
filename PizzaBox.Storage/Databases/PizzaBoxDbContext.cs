@@ -31,7 +31,7 @@ namespace PizzaBox.Storage.Databases {
 			builder.Entity<Store>().Property(r => r.StoreID).ValueGeneratedNever();
 
 			builder.Entity<PizzaTopping>().HasKey(pt => new { pt.PizzaID, pt.ToppingID });
-			builder.Entity<PizzaOrder>().HasKey(po => new { po.PizzaID, po.OrderID });
+			builder.Entity<OrderPizza>().HasKey(po => new { po.PizzaID, po.OrderID });
 
 			builder.Entity<Crust>().HasMany(c => c.Pizzas).WithOne(p => p.Crust);
 			builder.Entity<Size>().HasMany(s => s.Pizzas).WithOne(p => p.Size);
@@ -40,8 +40,8 @@ namespace PizzaBox.Storage.Databases {
 
 			builder.Entity<Pizza>().HasMany(p => p.PizzaToppings).WithOne(pt => pt.Pizza).HasForeignKey(pt => pt.PizzaID);
 			builder.Entity<Topping>().HasMany(t => t.PizzaToppings).WithOne(pt => pt.Topping).HasForeignKey(pt => pt.ToppingID);
-			builder.Entity<Pizza>().HasMany(p => p.PizzaOrders).WithOne(po => po.Pizza).HasForeignKey(po => po.PizzaID);
-			builder.Entity<Order>().HasMany(o => o.PizzaOrders).WithOne(po => po.Order).HasForeignKey(po => po.OrderID);
+			builder.Entity<Pizza>().HasMany(p => p.OrderPizzas).WithOne(po => po.Pizza).HasForeignKey(po => po.PizzaID);
+			builder.Entity<Order>().HasMany(o => o.OrderPizzas).WithOne(po => po.Order).HasForeignKey(po => po.OrderID);
 
 			builder.Entity<Crust>().HasData(new Crust[] {
 				new Crust() { CrustID = 1, Name = "Deep Dish", Price = 3.50M },

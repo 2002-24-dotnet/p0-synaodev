@@ -20,7 +20,7 @@ namespace PizzaBox.Domain.Models {
 		public Crust Crust { get; set; }
 		public Size Size { get; set; }
 		public List<PizzaTopping> PizzaToppings { get; set; }
-		public List<PizzaOrder> PizzaOrders { get; set; }
+		public List<OrderPizza> OrderPizzas { get; set; }
 		#endregion
 		public Pizza() {
 			PizzaID = DateTime.Now.Ticks;

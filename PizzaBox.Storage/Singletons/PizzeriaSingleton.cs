@@ -1,4 +1,5 @@
-using System.Collections.Generic;
+using System; 
+using System.Collections.Generic; 
 using PizzaBox.Domain.Models;
 using PizzaBox.Storage.Repositories;
 
@@ -64,9 +65,15 @@ namespace PizzaBox.Storage.Singletons {
 		public bool PostPizza(Crust crust, Size size, List<Topping> toppings) {
 			Pizza p = new Pizza() {
 				Crust = crust,
-				Size = size
+				Size = size,
+				PizzaToppings = new List<PizzaTopping>()
 			};
-			// Add Toppings ?
+			foreach (Topping t in toppings) {
+				p.PizzaToppings.Add(new PizzaTopping() {
+					Pizza = p,
+					Topping = t
+				});
+			}
 			return _pr.Post(p);
 		}
 		public bool PostCrust(string name, decimal price) {
@@ -97,19 +104,25 @@ namespace PizzaBox.Storage.Singletons {
 			};
 			return _ur.Post(u);
 		}
-		public bool PostOrder(User user, Store store, List<Pizza> pizzas) {
+		public bool PostOrder(User user, Store store, DateTime datetime, List<Pizza> pizzas) {
 			Order o = new Order() {
 				User = user,
-				Store = store
+				Store = store,
+				DateTime = datetime,
+				OrderPizzas = new List<OrderPizza>()
 			};
-			// Add Pizzas ?
+			foreach (Pizza p in pizzas) {
+				o.OrderPizzas.Add(new OrderPizza() {
+					Order = o,
+					Pizza = p
+				});
+			}
 			return _or.Post(o);
 		}
-		public bool PostStore(string name, string location, List<Order> orders) {
+		public bool PostStore(string name, string location) {
 			Store r = new Store() {
 				Name = name,
-				Location = location,
-				Orders = orders
+				Location = location
 			};
 			return _rr.Post(r);
 		}

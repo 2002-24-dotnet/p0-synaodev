@@ -10,7 +10,7 @@ namespace PizzaBox.Storage.Repositories {
 		}
 		public override List<Order> Get() {
 			return Table
-				.Include(o => o.PizzaOrders)
+				.Include(o => o.OrderPizzas)
 				.Include(o => o.User)
 			.ToList();
 		}

@@ -1,11 +1,11 @@
 
 namespace PizzaBox.Domain.Models {
-	public class PizzaTopping {
+	public class OrderPizza {
+		public long OrderID { get; set; }
 		public long PizzaID { get; set; }
-		public long ToppingID { get; set; }
 		#region NAVIGATION PROPERTIES
+		public Order Order { get; set; }
 		public Pizza Pizza { get; set; }
-		public Topping Topping { get; set; }
 		#endregion
 	}
 }

@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace PizzaBox.Storage.Migrations
 {
@@ -102,7 +103,8 @@ namespace PizzaBox.Storage.Migrations
                 {
                     OrderID = table.Column<long>(nullable: false),
                     UserID = table.Column<long>(nullable: false),
-                    StoreID = table.Column<long>(nullable: false)
+                    StoreID = table.Column<long>(nullable: false),
+                    DateTime = table.Column<DateTime>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -146,23 +148,23 @@ namespace PizzaBox.Storage.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "PizzaOrder",
+                name: "OrderPizza",
                 columns: table => new
                 {
-                    PizzaID = table.Column<long>(nullable: false),
-                    OrderID = table.Column<long>(nullable: false)
+                    OrderID = table.Column<long>(nullable: false),
+                    PizzaID = table.Column<long>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_PizzaOrder", x => new { x.PizzaID, x.OrderID });
+                    table.PrimaryKey("PK_OrderPizza", x => new { x.PizzaID, x.OrderID });
                     table.ForeignKey(
-                        name: "FK_PizzaOrder_Orders_OrderID",
+                        name: "FK_OrderPizza_Orders_OrderID",
                         column: x => x.OrderID,
                         principalTable: "Orders",
                         principalColumn: "OrderID",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_PizzaOrder_Pizzas_PizzaID",
+                        name: "FK_OrderPizza_Pizzas_PizzaID",
                         column: x => x.PizzaID,
                         principalTable: "Pizzas",
                         principalColumn: "PizzaID",
@@ -221,12 +223,12 @@ namespace PizzaBox.Storage.Migrations
 
             migrationBuilder.InsertData(
                 table: "Orders",
-                columns: new[] { "OrderID", "StoreID", "UserID" },
+                columns: new[] { "OrderID", "DateTime", "StoreID", "UserID" },
                 values: new object[,]
                 {
-                    { 1L, 1L, 1L },
-                    { 2L, 2L, 2L },
-                    { 3L, 3L, 3L }
+                    { 1L, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1L, 1L },
+                    { 2L, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 2L, 2L },
+                    { 3L, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 3L, 3L }
                 });
 
             migrationBuilder.InsertData(
@@ -240,6 +242,11 @@ namespace PizzaBox.Storage.Migrations
                 });
 
             migrationBuilder.CreateIndex(
+                name: "IX_OrderPizza_OrderID",
+                table: "OrderPizza",
+                column: "OrderID");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Orders_StoreID",
                 table: "Orders",
                 column: "StoreID");
@@ -248,11 +255,6 @@ namespace PizzaBox.Storage.Migrations
                 name: "IX_Orders_UserID",
                 table: "Orders",
                 column: "UserID");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_PizzaOrder_OrderID",
-                table: "PizzaOrder",
-                column: "OrderID");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Pizzas_CrustID",
@@ -273,7 +275,7 @@ namespace PizzaBox.Storage.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "PizzaOrder");
+                name: "OrderPizza");
 
             migrationBuilder.DropTable(
                 name: "PizzaTopping");

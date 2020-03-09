@@ -7,7 +7,9 @@ namespace PizzaBox.Domain.Models {
 		public long StoreID { get; set; }
 		public string Name { get; set; }
 		public string Location { get; set; }
+		#region NAVIGATIONAL PROPERTIES
 		public List<Order> Orders { get; set; }
+		#endregion
 		public Store() {
 			StoreID = DateTime.Now.Ticks;
 		}
