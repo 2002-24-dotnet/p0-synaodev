@@ -20,8 +20,6 @@ namespace PizzaBox.Storage.Databases {
 
 			builder.Entity<Pizza>().HasKey(p => p.PizzaID);
 			builder.Entity<Pizza>().Property(p => p.PizzaID).ValueGeneratedNever();
-			//builder.Entity<Pizza>().Property(p => p.CrustID).ValueGeneratedNever();
-			//builder.Entity<Pizza>().Property(p => p.SizeID).ValueGeneratedNever();
 
 			builder.Entity<Size>().HasKey(s => s.SizeID);
 			builder.Entity<Size>().Property(s => s.SizeID).ValueGeneratedNever();
@@ -34,8 +32,6 @@ namespace PizzaBox.Storage.Databases {
 
 			builder.Entity<Order>().HasKey(o => o.OrderID);
 			builder.Entity<Order>().Property(o => o.OrderID).ValueGeneratedNever();
-			//builder.Entity<Order>().Property(o => o.StoreID).ValueGeneratedNever();
-			//builder.Entity<Order>().Property(o => o.UserID).ValueGeneratedNever();
 
 			builder.Entity<Store>().HasKey(r => r.StoreID);
 			builder.Entity<Store>().Property(r => r.StoreID).ValueGeneratedNever();
@@ -43,7 +39,7 @@ namespace PizzaBox.Storage.Databases {
 			builder.Entity<Crust>().HasMany(c => c.Pizzas).WithOne(p => p.Crust).HasForeignKey(p => p.CrustID);
 			builder.Entity<Size>().HasMany(s => s.Pizzas).WithOne(p => p.Size).HasForeignKey(p => p.SizeID);
 			builder.Entity<User>().HasMany(u => u.Orders).WithOne(o => o.User).HasForeignKey(o => o.UserID);
-			builder.Entity<Store>().HasMany(r => r.Orders).WithOne(o => o.Store).HasForeignKey(r => r.StoreID);
+			builder.Entity<Store>().HasMany(r => r.Orders).WithOne(o => o.Store).HasForeignKey(o => o.StoreID);
 
 			builder.Entity<Pizza>().HasMany(p => p.PizzaToppings).WithOne(pt => pt.Pizza).HasForeignKey(pt => pt.PizzaID);
 			builder.Entity<Topping>().HasMany(t => t.PizzaToppings).WithOne(pt => pt.Topping).HasForeignKey(pt => pt.ToppingID);
@@ -51,57 +47,87 @@ namespace PizzaBox.Storage.Databases {
 			builder.Entity<Order>().HasMany(o => o.OrderPizzas).WithOne(po => po.Order).HasForeignKey(po => po.OrderID);
 
 			builder.Entity<PizzaTopping>().HasKey(pt => new { pt.PizzaID, pt.ToppingID });
-			//builder.Entity<PizzaTopping>().Property(pt => pt.PizzaID).ValueGeneratedNever();
-			//builder.Entity<PizzaTopping>().Property(pt => pt.ToppingID).ValueGeneratedNever();
 			builder.Entity<OrderPizza>().HasKey(po => new { po.PizzaID, po.OrderID });
-			//builder.Entity<OrderPizza>().Property(po => po.OrderID).ValueGeneratedNever();
-			//builder.Entity<OrderPizza>().Property(po => po.PizzaID).ValueGeneratedNever();
 			builder.Entity<PizzaTopping>().HasOne(pt => pt.Pizza).WithMany(p => p.PizzaToppings).HasForeignKey(p => p.PizzaID);
 			builder.Entity<PizzaTopping>().HasOne(pt => pt.Topping).WithMany(t => t.PizzaToppings).HasForeignKey(t => t.ToppingID);
 			builder.Entity<OrderPizza>().HasOne(op => op.Order).WithMany(o => o.OrderPizzas).HasForeignKey(o => o.OrderID);
 			builder.Entity<OrderPizza>().HasOne(op => op.Pizza).WithMany(p => p.OrderPizzas).HasForeignKey(p => p.PizzaID);
 
-			builder.Entity<Crust>().HasData(new Crust[] {
+			Crust[] crusts = new Crust[] {
 				new Crust() { CrustID = 1, Name = "Deep Dish", Price = 3.50M },
 				new Crust() { CrustID = 2, Name = "New York Style", Price = 2.50M },
 				new Crust() { CrustID = 3, Name = "Thin Crust", Price = 1.50M }
-			});
+			};
 
-			builder.Entity<Size>().HasData(new Size[] {
+			builder.Entity<Crust>().HasData(crusts);
+
+			Size[] sizes = new Size[] {
 				new Size() { SizeID = 1, Name = "Large", Price = 12.00M },
 				new Size() { SizeID = 2, Name = "Medium", Price = 10.00M },
 				new Size() { SizeID = 3, Name = "Small", Price = 8.00M }
-			});
+			};
 
-			builder.Entity<Topping>().HasData(new Topping[] {
+			builder.Entity<Size>().HasData(sizes);
+
+			Topping[] toppings = new Topping[] {
 				new Topping() { Name = "Cheese", Price = 0.25M },
 				new Topping() { Name = "Tomato Sauce", Price = 0.75M },
 				new Topping() { Name = "Pepperoni", Price = 0.50M },
 				new Topping() { Name = "Bacon", Price = 0.45M },
 				new Topping() { Name = "Anchovies", Price = 1.00M }
-			});
+			};
 
-			builder.Entity<Pizza>().HasData(new Pizza[] {
-				new Pizza() { CrustID = 1, SizeID = 1 },
-				new Pizza() { CrustID = 2, SizeID = 2 },
-				new Pizza() { CrustID = 3, SizeID = 3 }
-			});
+			builder.Entity<Topping>().HasData(toppings);
 
-			builder.Entity<Store>().HasData(new Store[] {
-				new Store() { Name = "Eat At Joe's", Location = "Albequerque" },
-				new Store() { Name = "Muggy Pizza", Location = "New York" }
-			});
+			Pizza[] pizzas = new Pizza[] {
+				new Pizza() { 
+					PizzaID = 1, 
+					CrustID = crusts[0].CrustID, 
+					SizeID = sizes[0].SizeID
+				},
+				new Pizza() { 
+					PizzaID = 2, 
+					CrustID = crusts[1].CrustID, 
+					SizeID = sizes[1].SizeID 
+				},
+				new Pizza() { 
+					PizzaID = 3, 
+					CrustID = crusts[2].CrustID, 
+					SizeID = sizes[2].SizeID
+				}
+			};
 
-			builder.Entity<User>().HasData(new User[] {
-				new User() { Username = "Tyler", Password = "Cadena" },
-				new User() { Username = "Cody", Password = "Benjamin" },
-				new User() { Username = "Mario", Password = "Mario" }
-			});
+			builder.Entity<Pizza>().HasData(pizzas);
 
-			/*builder.Entity<Order>().HasData(new Order[] {
-				new Order() { OrderID = 1, StoreID = 1, UserID = 1, Completed = true },
-				new Order() { OrderID = 2, StoreID = 2, UserID = 2, Completed = true }
-			});*/
+			PizzaTopping[] pizzatoppings = new PizzaTopping[] {
+				new PizzaTopping() { PizzaID = pizzas[0].PizzaID, ToppingID = toppings[0].ToppingID },
+				new PizzaTopping() { PizzaID = pizzas[0].PizzaID, ToppingID = toppings[1].ToppingID },
+				new PizzaTopping() { PizzaID = pizzas[0].PizzaID, ToppingID = toppings[2].ToppingID },
+				new PizzaTopping() { PizzaID = pizzas[1].PizzaID, ToppingID = toppings[0].ToppingID },
+				new PizzaTopping() { PizzaID = pizzas[1].PizzaID, ToppingID = toppings[1].ToppingID },
+				new PizzaTopping() { PizzaID = pizzas[1].PizzaID, ToppingID = toppings[3].ToppingID },
+				new PizzaTopping() { PizzaID = pizzas[2].PizzaID, ToppingID = toppings[0].ToppingID },
+				new PizzaTopping() { PizzaID = pizzas[2].PizzaID, ToppingID = toppings[1].ToppingID },
+				new PizzaTopping() { PizzaID = pizzas[2].PizzaID, ToppingID = toppings[4].ToppingID }
+			};
+
+			builder.Entity<PizzaTopping>().HasData(pizzatoppings);
+
+			Store[] stores = new Store[] {
+				new Store() { StoreID = 1, Name = "Eat At Joe's", Location = "Albequerque" },
+				new Store() { StoreID = 2, Name = "Muggy Pizza", Location = "New York" },
+				new Store() { StoreID = 3, Name = "Whatever Man", Location = "New Mexico" }
+			};
+
+			builder.Entity<Store>().HasData(stores);
+
+			User[] users = new User[] {
+				new User() { UserID = 1, Username = "Tyler", Password = "Cadena" },
+				new User() { UserID = 2, Username = "Cody", Password = "Benjamin" },
+				new User() { UserID = 3, Username = "Mario", Password = "Mario" }
+			};
+
+			builder.Entity<User>().HasData(users);
 		}
 	}
 }

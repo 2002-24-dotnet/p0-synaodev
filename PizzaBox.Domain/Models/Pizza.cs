@@ -31,7 +31,9 @@ namespace PizzaBox.Domain.Models {
 		public override string ToString() {
 			string result = $"{Crust.Name} {Size.Name} ";
 			foreach (PizzaTopping pt in PizzaToppings) {
-				result += $"{pt.Topping.Name} ";
+				if (pt.Topping != null) {
+					result += $"{pt.Topping.Name} ";
+				}
 			}
 			return result;
 		}
